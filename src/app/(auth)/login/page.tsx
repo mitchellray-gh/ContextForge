@@ -1,5 +1,7 @@
 import type { SVGProps } from "react";
 
+import { MagicLinkForm } from "@/components/auth/magic-link-form";
+
 import { signInWithGitHub, signInWithGoogle } from "./actions";
 
 export default async function LoginPage({
@@ -25,11 +27,19 @@ export default async function LoginPage({
           </p>
         ) : null}
 
+        <MagicLinkForm />
+
+        <div className="my-6 flex items-center gap-3 text-xs text-foreground/40">
+          <span className="h-px flex-1 bg-black/10 dark:bg-white/15" />
+          or
+          <span className="h-px flex-1 bg-black/10 dark:bg-white/15" />
+        </div>
+
         <div className="flex flex-col gap-3">
           <form action={signInWithGitHub}>
             <button
               type="submit"
-              className="flex w-full items-center justify-center gap-2 rounded-md bg-foreground px-4 py-2.5 text-sm font-medium text-background transition-opacity hover:opacity-90"
+              className="flex w-full items-center justify-center gap-2 rounded-md border border-black/15 px-4 py-2.5 text-sm font-medium transition-colors hover:bg-foreground/5 dark:border-white/20"
             >
               <GitHubIcon className="h-4 w-4" />
               Continue with GitHub
