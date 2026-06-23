@@ -38,3 +38,15 @@ export async function createClient() {
     },
   );
 }
+
+/**
+ * Whether the Supabase environment variables are configured. Pages and route
+ * handlers use this to fail gracefully (redirect or 503) instead of throwing a
+ * 500 when the deployment has not yet been connected to a Supabase project.
+ */
+export function isSupabaseConfigured(): boolean {
+  return Boolean(
+    process.env.NEXT_PUBLIC_SUPABASE_URL &&
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+  );
+}

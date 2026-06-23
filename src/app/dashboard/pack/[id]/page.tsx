@@ -2,7 +2,7 @@ import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 
 import { PackEditor } from "@/components/dashboard/pack-editor";
-import { createClient } from "@/lib/supabase/server";
+import { createClient, isSupabaseConfigured } from "@/lib/supabase/server";
 
 import { deletePack, updatePack } from "./actions";
 
@@ -11,6 +11,8 @@ export default async function PackPage({
 }: {
   params: Promise<{ id: string }>;
 }) {
+  if (!isSupabaseConfigured()) redirect("/login");
+
   const { id } = await params;
   const supabase = await createClient();
   const {

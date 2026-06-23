@@ -1,5 +1,32 @@
 import Link from "next/link";
 
+const VALUE_PROPS = [
+  {
+    title: "Cut token costs",
+    body: "Optimized, de-duplicated Markdown means smaller prompts—and lower API bills on every call.",
+  },
+  {
+    title: "Stop the copy-paste mess",
+    body: "Turn scattered docs, repos, and web pages into one clean, structured context pack.",
+  },
+  {
+    title: "Any source, one format",
+    body: "Raw text, web pages, and GitHub files all become consistent, LLM-ready Markdown.",
+  },
+  {
+    title: "Know your budget",
+    body: "Every pack ships with a token count, so you never blow past the context window.",
+  },
+  {
+    title: "Private by default",
+    body: "Row-level security keeps every data source and pack scoped to your account alone.",
+  },
+  {
+    title: "Built for LLMs",
+    body: "Output is structured for maximum comprehension by ChatGPT, Claude, and any model.",
+  },
+];
+
 const STEPS = [
   {
     title: "Add a source",
@@ -79,19 +106,68 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="grid w-full gap-4 pb-24 sm:grid-cols-3">
-          {STEPS.map((step, index) => (
-            <div
-              key={step.title}
-              className="rounded-xl border border-black/10 p-6 dark:border-white/15"
+        <section className="w-full border-t border-black/5 py-20 dark:border-white/10">
+          <div className="mx-auto max-w-2xl text-center">
+            <h2 className="text-3xl font-semibold tracking-tight">
+              Why ContextForge
+            </h2>
+            <p className="mt-3 text-foreground/60">
+              Feeding good context to an LLM is tedious and expensive.
+              ContextForge does the cleanup so you ship better prompts in
+              seconds.
+            </p>
+          </div>
+          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {VALUE_PROPS.map((prop) => (
+              <div
+                key={prop.title}
+                className="rounded-xl border border-black/10 p-6 dark:border-white/15"
+              >
+                <h3 className="font-semibold">{prop.title}</h3>
+                <p className="mt-2 text-sm text-foreground/60">{prop.body}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="w-full border-t border-black/5 py-20 dark:border-white/10">
+          <div className="mx-auto max-w-2xl text-center">
+            <h2 className="text-3xl font-semibold tracking-tight">
+              How it works
+            </h2>
+          </div>
+          <div className="mt-12 grid gap-4 sm:grid-cols-3">
+            {STEPS.map((step, index) => (
+              <div
+                key={step.title}
+                className="rounded-xl border border-black/10 p-6 dark:border-white/15"
+              >
+                <span className="text-sm font-semibold text-foreground/40">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <h3 className="mt-2 font-semibold">{step.title}</h3>
+                <p className="mt-1 text-sm text-foreground/60">{step.body}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="w-full border-t border-black/5 py-20 dark:border-white/10">
+          <div className="mx-auto flex max-w-2xl flex-col items-center rounded-2xl border border-black/10 px-6 py-14 text-center dark:border-white/15">
+            <h2 className="text-3xl font-semibold tracking-tight">
+              Build your first context pack
+            </h2>
+            <p className="mt-3 max-w-md text-foreground/60">
+              Sign in with GitHub or Google and turn your first source into an
+              optimized pack in under a minute.
+            </p>
+            <Link
+              href="/login"
+              className="mt-8 rounded-md bg-foreground px-6 py-3 text-sm font-medium text-background transition-opacity hover:opacity-90"
             >
-              <span className="text-sm font-semibold text-foreground/40">
-                {String(index + 1).padStart(2, "0")}
-              </span>
-              <h2 className="mt-2 font-semibold">{step.title}</h2>
-              <p className="mt-1 text-sm text-foreground/60">{step.body}</p>
-            </div>
-          ))}
+              Get started free
+            </Link>
+          </div>
         </section>
       </main>
 
@@ -101,4 +177,5 @@ export default function Home() {
     </div>
   );
 }
+
 

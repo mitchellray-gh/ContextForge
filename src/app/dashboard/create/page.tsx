@@ -2,9 +2,11 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 
 import { CreateSourceForm } from "@/components/dashboard/create-source-form";
-import { createClient } from "@/lib/supabase/server";
+import { createClient, isSupabaseConfigured } from "@/lib/supabase/server";
 
 export default async function CreatePackPage() {
+  if (!isSupabaseConfigured()) redirect("/login");
+
   const supabase = await createClient();
   const {
     data: { user },

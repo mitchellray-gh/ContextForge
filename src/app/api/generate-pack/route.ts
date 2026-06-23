@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
 import { generatePackFromSource } from "@/lib/extraction/generate";
-import { createClient } from "@/lib/supabase/server";
+import { createClient, isSupabaseConfigured } from "@/lib/supabase/server";
 
 /**
  * Core extraction engine endpoint. Given `{ sourceId }`, loads the caller's data
@@ -11,6 +11,13 @@ import { createClient } from "@/lib/supabase/server";
  * to the caller.
  */
 export async function POST(request: Request) {
+  if (!isSupabaseConfigured()) {
+    return NextResponse.json(
+      { error: "Supabase is not configured" },
+      { status: 503 },
+    );
+  }
+
   const supabase = await createClient();
   const {
     data: { user },
