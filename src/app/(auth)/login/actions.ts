@@ -4,7 +4,7 @@ import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import type { Provider } from "@supabase/supabase-js";
 
-import { createClient } from "@/lib/supabase/server";
+import { createClient, isSupabaseConfigured } from "@/lib/supabase/server";
 
 /**
  * Kicks off a Supabase OAuth sign-in. Runs on the server (server-first), then
@@ -12,6 +12,14 @@ import { createClient } from "@/lib/supabase/server";
  * the user back to `/callback`, which exchanges the code for a session.
  */
 async function signInWithProvider(provider: Provider) {
+  if (!isSupabaseConfigured()) {
+    redirect(
+      `/login?error=${encodeURIComponent(
+        "Sign-in isn't configured yet. Add NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY in Vercel, then redeploy.",
+      )}`,
+    );
+  }
+
   const supabase = await createClient();
   const origin = (await headers()).get("origin") ?? "";
 
