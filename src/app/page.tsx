@@ -1,65 +1,104 @@
-import Image from "next/image";
+import Link from "next/link";
+
+const STEPS = [
+  {
+    title: "Add a source",
+    body: "Paste raw text, a web page URL, or a GitHub file link.",
+  },
+  {
+    title: "We optimize it",
+    body: "ContextForge cleans, converts, and compacts it into tidy Markdown.",
+  },
+  {
+    title: "Copy your pack",
+    body: "Grab a token-counted context pack ready for any LLM.",
+  },
+];
+
+const SOURCES = ["Raw text", "Web pages", "GitHub files", "Notion (soon)"];
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
+    <div className="flex flex-1 flex-col">
+      <header className="mx-auto flex w-full max-w-5xl items-center justify-between px-6 py-6">
+        <span className="text-lg font-semibold tracking-tight">
+          ContextForge
+        </span>
+        <nav className="flex items-center gap-2">
+          <Link
+            href="/login"
+            className="rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-foreground/5"
+          >
+            Sign in
+          </Link>
+          <Link
+            href="/dashboard"
+            className="rounded-md bg-foreground px-4 py-2 text-sm font-medium text-background transition-opacity hover:opacity-90"
+          >
+            Open app
+          </Link>
+        </nav>
+      </header>
+
+      <main className="mx-auto flex w-full max-w-5xl flex-1 flex-col items-center px-6">
+        <section className="flex flex-col items-center py-20 text-center sm:py-28">
+          <span className="mb-5 rounded-full border border-black/10 px-3 py-1 text-xs font-medium text-foreground/60 dark:border-white/15">
+            Context packs for LLMs
+          </span>
+          <h1 className="max-w-3xl text-4xl font-semibold tracking-tight sm:text-6xl">
+            Turn any source into perfectly optimized context.
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+          <p className="mt-6 max-w-xl text-lg text-foreground/60">
+            ContextForge transforms URLs, raw text, and GitHub files into clean,
+            token-efficient Markdown packs—ready to paste into any large language
+            model.
           </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+          <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+            <Link
+              href="/login"
+              className="rounded-md bg-foreground px-6 py-3 text-sm font-medium text-background transition-opacity hover:opacity-90"
+            >
+              Get started free
+            </Link>
+            <Link
+              href="/dashboard"
+              className="rounded-md border border-black/15 px-6 py-3 text-sm font-medium transition-colors hover:bg-foreground/5 dark:border-white/20"
+            >
+              Go to dashboard
+            </Link>
+          </div>
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-2">
+            {SOURCES.map((source) => (
+              <span
+                key={source}
+                className="rounded-full border border-black/10 px-3 py-1 text-xs text-foreground/60 dark:border-white/15"
+              >
+                {source}
+              </span>
+            ))}
+          </div>
+        </section>
+
+        <section className="grid w-full gap-4 pb-24 sm:grid-cols-3">
+          {STEPS.map((step, index) => (
+            <div
+              key={step.title}
+              className="rounded-xl border border-black/10 p-6 dark:border-white/15"
+            >
+              <span className="text-sm font-semibold text-foreground/40">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+              <h2 className="mt-2 font-semibold">{step.title}</h2>
+              <p className="mt-1 text-sm text-foreground/60">{step.body}</p>
+            </div>
+          ))}
+        </section>
       </main>
+
+      <footer className="mx-auto w-full max-w-5xl px-6 py-8 text-sm text-foreground/50">
+        Built with Next.js and Supabase.
+      </footer>
     </div>
   );
 }
+
