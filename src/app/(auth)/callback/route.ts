@@ -10,13 +10,12 @@ import { createClient } from "@/lib/supabase/server";
  * `/callback` (route groups do not add a URL segment). The matching value is
  * passed to `signInWithOAuth({ options: { redirectTo } })` in the login action.
  *
- * `next` defaults to `/` for now because the dashboard is not built yet; switch
- * the default to `/dashboard` once that page exists.
+ * On success the user lands on `/dashboard` unless a `next` param overrides it.
  */
 export async function GET(request: Request) {
   const { searchParams, origin } = new URL(request.url);
   const code = searchParams.get("code");
-  const next = searchParams.get("next") ?? "/";
+  const next = searchParams.get("next") ?? "/dashboard";
 
   if (code) {
     const supabase = await createClient();
