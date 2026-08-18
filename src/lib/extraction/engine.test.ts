@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from "vitest";
 
-import { extract } from "@/lib/extraction/engine";
+import { extract, assertPublicUrl } from "@/lib/extraction/engine";
 
 /** Builds a minimal mock of the global `fetch` returning the given text body. */
 function mockFetch(body: string, ok = true, status = 200): typeof fetch {
@@ -36,6 +36,7 @@ describe("extract", () => {
 
     expect(fetchFn).toHaveBeenCalledWith(
       "https://raw.githubusercontent.com/o/r/main/a.ts",
+      expect.any(Object),
     );
     expect(result.content).toContain("```typescript");
     expect(result.content).toContain("const x = 1");
@@ -76,5 +77,39 @@ describe("extract", () => {
         { fetchFn },
       ),
     ).rejects.toThrow(/404/);
+  });
+});
+
+describe("assertPublicUrl (SSRF guard)", () => {
+  it("allows public https URLs", () => {
+    expect(() => assertPublicUrl("https://example.com/a")).not.toThrow();
+  });
+
+  it("rejects non-http protocols", () => {
+    expect(() => assertPublicUrl("file:///etc/passwd")).toThrow(/http/i);
+  });
+
+  it("rejects localhost and loopback", () => {
+    expect(() => assertPublicUrl("http://localhost/x")).toThrow(/private/i);
+    expect(() => assertPublicUrl("http://127.0.0.1/x")).toThrow(/private/i);
+  });
+
+  it("rejects private ranges and cloud metadata", () => {
+    expect(() => assertPublicUrl("http://10.0.0.5/x")).toThrow(/private/i);
+    expect(() => assertPublicUrl("http://192.168.1.1/x")).toThrow(/private/i);
+    expect(() => assertPublicUrl("http://169.254.169.254/latest")).toThrow(
+      /private|metadata/i,
+    );
+  });
+
+  it("blocks a private target inside extract() before fetching", async () => {
+    const fetchFn = mockFetch("secret");
+    await expect(
+      extract(
+        { sourceType: "url_scrape", sourceUri: "http://169.254.169.254/x" },
+        { fetchFn },
+      ),
+    ).rejects.toThrow(/private|metadata/i);
+    expect(fetchFn).not.toHaveBeenCalled();
   });
 });

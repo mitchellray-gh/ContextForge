@@ -30,7 +30,10 @@ export interface ExtractionResult {
   title: string;
   /** The optimized markdown context pack. */
   content: string;
+  /** Token count of the optimized `content`. */
   tokenCount: number;
+  /** Token count of the raw, pre-optimization source (for the savings delta). */
+  sourceTokenCount: number;
 }
 
 export interface ExtractionDeps {

@@ -32,7 +32,7 @@ function SubmitButton() {
     <button
       type="submit"
       disabled={pending}
-      className="rounded-md bg-foreground px-4 py-2.5 text-sm font-medium text-background transition-opacity hover:opacity-90 disabled:opacity-60"
+      className="rounded-md bg-accent px-4 py-2.5 text-sm font-medium text-accent-fg transition-opacity hover:opacity-90 disabled:opacity-60"
     >
       {pending ? "Generating…" : "Generate context pack"}
     </button>
@@ -48,7 +48,7 @@ export function CreateSourceForm() {
 
   const labelClass = "block text-sm font-medium";
   const fieldClass =
-    "mt-1.5 w-full rounded-md border border-black/15 bg-transparent px-3 py-2 text-sm outline-none focus:border-foreground/40 dark:border-white/20";
+    "mt-1.5 w-full rounded-md border border-border bg-panel px-3 py-2 text-sm outline-none focus:border-accent/60";
 
   return (
     <form action={formAction} className="flex flex-col gap-5">

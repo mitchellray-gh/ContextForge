@@ -22,7 +22,9 @@ export default async function PackPage({
 
   const { data: pack } = await supabase
     .from("context_packs")
-    .select("id, title, token_count, raw_content, created_at")
+    .select(
+      "id, title, token_count, source_token_count, raw_content, created_at",
+    )
     .eq("id", id)
     .single();
 

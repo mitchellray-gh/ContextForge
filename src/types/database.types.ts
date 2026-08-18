@@ -95,6 +95,7 @@ export type Database = {
           source_id: string | null;
           title: string;
           token_count: number | null;
+          source_token_count: number | null;
           raw_content: string;
           created_at: string;
         };
@@ -104,6 +105,7 @@ export type Database = {
           source_id?: string | null;
           title: string;
           token_count?: number | null;
+          source_token_count?: number | null;
           raw_content: string;
           created_at?: string;
         };
@@ -113,6 +115,7 @@ export type Database = {
           source_id?: string | null;
           title?: string;
           token_count?: number | null;
+          source_token_count?: number | null;
           raw_content?: string;
           created_at?: string;
         };

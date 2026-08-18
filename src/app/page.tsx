@@ -60,7 +60,7 @@ export default function Home() {
           </Link>
           <Link
             href="/dashboard"
-            className="rounded-md bg-foreground px-4 py-2 text-sm font-medium text-background transition-opacity hover:opacity-90"
+            className="rounded-md bg-accent px-4 py-2 text-sm font-medium text-accent-fg transition-opacity hover:opacity-90"
           >
             Open app
           </Link>
@@ -83,13 +83,13 @@ export default function Home() {
           <div className="mt-9 flex flex-col gap-3 sm:flex-row">
             <Link
               href="/login"
-              className="rounded-md bg-foreground px-6 py-3 text-sm font-medium text-background transition-opacity hover:opacity-90"
+              className="rounded-md bg-accent px-6 py-3 text-sm font-medium text-accent-fg transition-opacity hover:opacity-90"
             >
               Get started free
             </Link>
             <Link
               href="/dashboard"
-              className="rounded-md border border-black/15 px-6 py-3 text-sm font-medium transition-colors hover:bg-foreground/5 dark:border-white/20"
+              className="rounded-md border border-border px-6 py-3 text-sm font-medium transition-colors hover:bg-foreground/5"
             >
               Go to dashboard
             </Link>
@@ -163,7 +163,7 @@ export default function Home() {
             </p>
             <Link
               href="/login"
-              className="mt-8 rounded-md bg-foreground px-6 py-3 text-sm font-medium text-background transition-opacity hover:opacity-90"
+              className="mt-8 rounded-md bg-accent px-6 py-3 text-sm font-medium text-accent-fg transition-opacity hover:opacity-90"
             >
               Get started free
             </Link>

@@ -13,6 +13,7 @@ export interface GeneratePackResult {
   packId: string;
   title: string;
   tokenCount: number;
+  sourceTokenCount: number;
 }
 
 /**
@@ -58,6 +59,7 @@ export async function generatePackFromSource(
       source_id: source.id,
       title: result.title,
       token_count: result.tokenCount,
+      source_token_count: result.sourceTokenCount,
       raw_content: result.content,
     })
     .select("id")
@@ -71,5 +73,6 @@ export async function generatePackFromSource(
     packId: pack.id,
     title: result.title,
     tokenCount: result.tokenCount,
+    sourceTokenCount: result.sourceTokenCount,
   };
 }
